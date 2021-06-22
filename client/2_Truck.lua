@@ -58,7 +58,7 @@ AddEventHandler('master_job:start_truck', function(data, jobid)
             DrawMarker(1, vector3(data.arrive.x, data.arrive.y, data.arrive.z - 1), vector3(0.0, 0.0, 0.0), vector3(0.0, 0.0, 0.0), vector3(3.0, 3.0, 3.0), 255, 255, 50, 150, false, false, 2, false, false, false)
             if distance <= 10.0 then
                 while IsVehicleAttachedToTrailer(truck, trailer) do 
-                    text('Jahate Tahvil bar ~y~H~w~ Bezanid.', 250)
+                    text('Jahate Tahvil bar ~y~H~w~ Negahdarid.', 250)
                     Wait(250)
                 end
                 break

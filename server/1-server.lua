@@ -59,9 +59,9 @@ AddEventHandler('master_job:finished_truck', function(id, damages)
             xPlayer.addMoney(price)
 			if Config.Truck[id].payment ~= price then
 				DamagePrice = Config.Truck[id].payment - price
-				TriggerClientEvent("pNotify:SendNotification", xPlayer.source, { text = "بدلیل خسارت وارد شده به خودرو، مبلغ " .. DamagePrice .. "$ از دستمزد شما کسر شد.", type = "info", timeout = 5000, layout = "bottomCenter"})
+				TriggerClientEvent("pNotify:SendNotification", xPlayer.source, { text = "بدلیل خسارت وارد شده به خودرو، مبلغ " .. DamagePrice .. "$ از دستمزد شما کسر شد.", type = "info", timeout = 10000, layout = "bottomCenter"})
 			end
-			TriggerClientEvent("pNotify:SendNotification", xPlayer.source, { text = "شما مبلغ " .. price .. "$ بدست آوردید.", type = "success", timeout = 5000, layout = "bottomCenter"})
+			TriggerClientEvent("pNotify:SendNotification", xPlayer.source, { text = "شما مبلغ " .. price .. "$ بدست آوردید.", type = "success", timeout = 10000, layout = "bottomCenter"})
 		else
             TriggerClientEvent("pNotify:SendNotification", xPlayer.source, { text = "در حال حاضر شخض دیگری در حال بارگیری می باشد.", type = "error", timeout = 5000, layout = "bottomCenter"})
 		end
