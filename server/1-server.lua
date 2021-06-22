@@ -5,6 +5,7 @@ InJob = {}
 --- TRUCK
 RegisterServerEvent('master_job:startTruckJob')
 AddEventHandler('master_job:startTruckJob', function(id)
+	ESX.RunCustomFunction("anti_ddos", source, 'master_job:startTruckJob', {})
     local xPlayer = ESX.GetPlayerFromId(source)
     if InJob[xPlayer.source] ~= nil then
 		TriggerClientEvent("pNotify:SendNotification", xPlayer.source, { text = "شما ابتدا باید محموله قبلی را تحویل دهید.", type = "error", timeout = 5000, layout = "bottomCenter"})
@@ -23,7 +24,8 @@ AddEventHandler('master_job:startTruckJob', function(id)
 end)
 
 RegisterServerEvent('master_job:CarIsReady')
-AddEventHandler('master_job:CarIsReady', function(id, veh)
+AddEventHandler('master_job:CarIsReady', function(id)
+	ESX.RunCustomFunction("anti_ddos", source, 'master_job:CarIsReady', {})
     local xPlayer = ESX.GetPlayerFromId(source)
 	if InJob[xPlayer.source] == nil then
 		return
@@ -40,6 +42,7 @@ end)
 
 RegisterServerEvent('master_job:finished_truck')
 AddEventHandler('master_job:finished_truck', function(id, damages)
+	ESX.RunCustomFunction("anti_ddos", source, 'master_job:finished_truck', {})
     local xPlayer = ESX.GetPlayerFromId(source)
 	if InJob[xPlayer.source] == nil then
 		return
@@ -54,6 +57,10 @@ AddEventHandler('master_job:finished_truck', function(id, damages)
         
         if price >= 0 then
             xPlayer.addMoney(price)
+			if Config.Truck[id].payment ~= price then
+				DamagePrice = Config.Truck[id].payment - price
+				TriggerClientEvent("pNotify:SendNotification", xPlayer.source, { text = "بدلیل خسارت وارد شده به خودرو، مبلغ " .. DamagePrice .. "$ از دستمزد شما کسر شد.", type = "info", timeout = 5000, layout = "bottomCenter"})
+			end
 			TriggerClientEvent("pNotify:SendNotification", xPlayer.source, { text = "شما مبلغ " .. price .. "$ بدست آوردید.", type = "success", timeout = 5000, layout = "bottomCenter"})
 		else
             TriggerClientEvent("pNotify:SendNotification", xPlayer.source, { text = "در حال حاضر شخض دیگری در حال بارگیری می باشد.", type = "error", timeout = 5000, layout = "bottomCenter"})

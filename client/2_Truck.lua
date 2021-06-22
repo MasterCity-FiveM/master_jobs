@@ -10,11 +10,18 @@ AddEventHandler('master_job:start_truck', function(data, jobid)
 		local plate = GetVehicleNumberPlateText(vehicle)
 		truck = vehicle
 		TriggerServerEvent("car_lock:GiveKeys", vehNet, plate)
-		TriggerServerEvent("master_job:CarIsReady", jobid, vehNet)
 	end)
 	
 	local destinationBlip, truckBlip, trailerBlip = addBlip(data.arrive, 38, 3, 'Kamiyon')
-    while truck == nil or trailer == nil do
+	
+    while truck == nil do
+		Citizen.Wait(1)
+	end
+	
+	Citizen.Wait(200)
+	TriggerServerEvent("master_job:CarIsReady", jobid)
+	
+	while trailer == nil do
 		Citizen.Wait(1)
 	end
 	

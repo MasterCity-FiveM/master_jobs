@@ -73,25 +73,3 @@ end)
 
 
 local truck, trailer = nil, nil
-
-RegisterNetEvent('master_job:startTrucke')
-AddEventHandler('master_job:startTruck', function(data, jobid)
-	working = true
-	truck, trailer = nil, nil
-	print("zzzzz")
-	ESX.Game.SpawnVehicle(data.vehicles[1], data.start[1], data.start[2], function(vehicle)
-		print("A")
-		truck = vehicle
-		local vehNet = NetworkGetNetworkIdFromEntity(vehicle)
-		local plate = GetVehicleNumberPlateText(vehicle)
-		TriggerServerEvent("car_lock:GiveKeys", vehNet, plate)
-		TriggerServerEvent("master_job:CarIsReady", vehNet)
-		exports.pNotify:SendNotification({text = 'لطفا خودرو را در پارکینگ تحویل بگیرید.', type = "success", timeout = 5000})
-	end)
-	
-	
-    local destinationBlip, truckBlip, trailerBlip = addBlip(data.arrive, 38, 3, Strings['destination'])
-    while working do
-		
-	end
-end)
